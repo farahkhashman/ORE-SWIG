@@ -18,12 +18,9 @@ jobs:
           repository: OpenSourceRisk/Engine
           path: './ORE'
           fetch-depth: 0
-    - name: checkout version 11
-      run: |
-        git checkout tags/v1.8.11.0
     - name: get QuantLib
       run: |
-        git submodule update --init
+        git submodule update --init --recusrive
     - name: zlib
       run: |
         $Url = "https://www.zlib.net/zlib131.zip"
