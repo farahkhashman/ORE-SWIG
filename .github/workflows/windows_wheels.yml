@@ -13,14 +13,19 @@ jobs:
             platform: x64
             boost-lib: 64
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout ORE-SWIG
+      uses: actions/checkout@v3
+    - name: Checkout ORE
+      uses: actions/checkout@v3
       with:
           repository: OpenSourceRisk/Engine
           path: './ORE'
           fetch-depth: 0
     - name: get QuantLib
       run: |
+        cd ORE
         git submodule update --init --recusrive
+        cd ..
     - name: zlib
       run: |
         $Url = "https://www.zlib.net/zlib131.zip"
