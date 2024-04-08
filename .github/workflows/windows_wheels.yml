@@ -59,7 +59,7 @@ jobs:
         Boost_ROOT: C:\local\boost
       shell: cmd
       run: |
-        cwd
+        pwd
         cd ORE
         SET ORE_DIR=%cd%
         mkdir build
@@ -72,9 +72,9 @@ jobs:
     - name: Build ORE-SWIG
       shell: cmd
       run: |
-        cwd
+        pwd
         cd ..
-        cwd
+        pwd
         SET SWIG_ROOT=%cd%
         cd OREAnalytics-SWIG\Python
         mkdir build
