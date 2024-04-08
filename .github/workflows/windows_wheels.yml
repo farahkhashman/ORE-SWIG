@@ -73,8 +73,6 @@ jobs:
       shell: cmd
       run: |
         pwd
-        cd ..
-        pwd
         SET SWIG_ROOT=%cd%
         cd OREAnalytics-SWIG\Python
         mkdir build
