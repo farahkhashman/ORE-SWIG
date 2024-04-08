@@ -15,6 +15,9 @@ jobs:
     steps:
     - name: Checkout ORE-SWIG
       uses: actions/checkout@v3
+    - name: get QuantLib-SWIG
+      run: |
+        git submodule update --init
     - name: Checkout ORE
       uses: actions/checkout@v3
       with:
@@ -24,7 +27,7 @@ jobs:
     - name: get QuantLib
       run: |
         cd ORE
-        git submodule update --init --recusrive
+        git submodule update --init
         cd ..
     - name: zlib
       run: |
