@@ -103,7 +103,7 @@ jobs:
         CIBW_ARCHS_WINDOWS: ${{ matrix.arch }}
         CIBW_BUILD_VERBOSITY: 2
       with:
-        package-dir: oreswig/OREAnalytics-SWIG/Python
+        package-dir: D:\a\ORE-SWIG\ORE-SWIG\OREAnalytics-SWIG\Python
     - name: Save wheels as artifacts
       uses: actions/upload-artifact@v3
       with:
