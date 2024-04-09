@@ -85,7 +85,7 @@ jobs:
         SET BOOST_INCLUDEDIR=C:\local\boost
         SET BOOST_LIBRARYDIR=C:\local\boost\lib${{ matrix.boost-lib }}-msvc-14.3
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Vc\Auxiliary\Build\vcvarsall.bat" ${{ matrix.arch }} -vcvars_ver=14.3 || exit 1
-        cmake .. -GNinja -DORE=%ORE_DIR% -DMSVC_LINK_DYNAMIC_RUNTIME=OFF -DORE_USE_ZLIB=ON -DZLIB_LIBRARY=C:\local\zlib-1.3.1\build\Release\zlib.lib -DBoost_NO_SYSTEM_PATHS=ON
+        cmake .. -GNinja -DORE=%ORE_DIR% -DCMAKE_BUILD_TYPE=Release -DMSVC_LINK_DYNAMIC_RUNTIME=OFF -DORE_USE_ZLIB=ON -DZLIB_LIBRARY=C:\local\zlib-1.3.1\build\Release\zlib.lib -DBoost_NO_SYSTEM_PATHS=ON
         cmake --build . --config Release
     - name: Build ORE Wheels
       uses: pypa/cibuildwheel@v2.16.5
