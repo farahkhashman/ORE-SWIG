@@ -9,7 +9,6 @@ jobs:
           - arch: x86
             platform: Win32
             boost-lib: 32
-
     steps:
     - name: Checkout ORE-SWIG
       uses: actions/checkout@v3
@@ -27,24 +26,28 @@ jobs:
         cd ORE
         git submodule update --init
         cd ..
-    - name: zlib
-      shell: cmd
+    - name: get zlib
       run: |
         $Url = "https://www.zlib.net/zlib131.zip"
         (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\zlib.zip")
         Expand-Archive -Path "$env:TEMP\zlib.zip" -DestinationPath C:\local
+    - name: build zlib
+      shell: cmd
+      run: | 
         cd C:\local\zlib-1.3.1
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Vc\Auxiliary\Build\vcvarsall.bat" ${{ matrix.arch }} -vcvars_ver=14.3 || exit 1
         mkdir build
         cd build
         cmake ..
         cmake --build . --config Release
-    - name: eigen
-      shell: cmd
+    - name: get eigen
       run: |
         $Url = "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.zip"
         (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\eigen.zip")
         Expand-Archive -Path "$env:TEMP\eigen.zip" -DestinationPath C:\local
+    - name: build eigen
+      shell: cmd
+      run: |
         cd C:\local\eigen-3.4.0
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Vc\Auxiliary\Build\vcvarsall.bat" ${{ matrix.arch }} -vcvars_ver=14.3 || exit 1
         mkdir build
