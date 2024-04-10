@@ -6,9 +6,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - arch: x86
-            platform: Win32
-            boost-lib: 32
           - arch: AMD64
             platform: x64
             boost-lib: 64
