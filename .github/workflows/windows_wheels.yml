@@ -6,6 +6,9 @@ jobs:
     strategy:
       matrix:
         include:
+          - arch: x86
+            platform: Win32
+            boost-lib: 32
           - arch: AMD64
             platform: x64
             boost-lib: 64
@@ -28,6 +31,7 @@ jobs:
         cd ..
     - name: zlib
       run: |
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Vc\Auxiliary\Build\vcvarsall.bat" ${{ matrix.arch }} -vcvars_ver=14.3 || exit 1
         $Url = "https://www.zlib.net/zlib131.zip"
         (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\zlib.zip")
         Expand-Archive -Path "$env:TEMP\zlib.zip" -DestinationPath C:\local
@@ -38,6 +42,7 @@ jobs:
         cmake --build . --config Release
     - name: eigen
       run: |
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Vc\Auxiliary\Build\vcvarsall.bat" ${{ matrix.arch }} -vcvars_ver=14.3 || exit 1
         $Url = "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.zip"
         (New-Object System.Net.WebClient).DownloadFile($Url, "$env:TEMP\eigen.zip")
         Expand-Archive -Path "$env:TEMP\eigen.zip" -DestinationPath C:\local
