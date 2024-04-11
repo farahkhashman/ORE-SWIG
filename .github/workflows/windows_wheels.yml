@@ -98,7 +98,7 @@ jobs:
         SET BOOST_INCLUDEDIR=C:\local\boost
         SET BOOST_LIBRARYDIR=C:\local\boost\lib${{ matrix.boost-lib }}-msvc-14.2
         cd D:\a\ORE-SWIG\ORE-SWIG\OREAnalytics-SWIG\Python
-        python setup.py --wrap
+        python setup.py wrap
         tree
     - name: Build ORE Wheels
       uses: pypa/cibuildwheel@v2.16.5
