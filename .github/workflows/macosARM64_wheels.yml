@@ -31,15 +31,14 @@ jobs:
         ./b2 architecture=arm address-model=64 -s NO_LZMA=1 -s NO_ZSTD=1 abi=aapcs install
     - name: Build ORE CMake
       run: |
+        cd ORE
         mkdir build
         cd build
         cmake .. -DCMAKE_OSX_ARCHITECTURES=arm64 -DORE_USE_ZLIB=ON -DBUILD_SHARED_LIBS=false -DORE_BUILD_DOC=OFF -DORE_BUILD_EXAMPLES=OFF -DORE_BUILD_TESTS=OFF -DORE_BUILD_APP=OFF -DQL_BUILD_BENCHMARK=OFF -DQL_BUILD_EXAMPLES=OFF -DQL_BUILD_TEST_SUITE=OFF -DQL_ENABLE_SESSIONS=ON -DCMAKE_BUILD_TYPE=Release ..
         cmake --build . -j4
         cmake --install .
-        cd ..
     - name: Wrap ORE-SWIG
       run: |
-        cd ..
         pwd
         cp wheels/oreanalytics-config.macos OREAnalytics-SWIG/oreanalytics-config
         cd OREAnalytics-SWIG/Python/
