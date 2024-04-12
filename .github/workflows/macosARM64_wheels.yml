@@ -42,7 +42,15 @@ jobs:
         pwd
         python -m pip install setuptools
         cp wheels/oreanalytics-config.macos OREAnalytics-SWIG/oreanalytics-config
-        cd OREAnalytics-SWIG/Python/
+        cd OREAnalytics-SWIG
+        ls -al
+        cd SWIG
+        ls -al
+        chmod +x oreanalytics.i
+        cd ..
+        cd Python
+        ls -al
+        pwd
         python setup.py wrap
         python setup.py build
     - name: Build Wheels
