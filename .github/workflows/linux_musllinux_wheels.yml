@@ -54,7 +54,7 @@ jobs:
         CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-std=c++17 -O3 -g0"
         CIBW_ENVIRONMENT_PASS_LINUX: CXXFLAGS
       with:
-        package-dir: /home/runner/work/ore-swig/ore-swig/OREAnalytics-SWIG/Python
+        package-dir: /home/runner/work/ORE-SWIG/ORE-SWIG/OREAnalytics-SWIG/Python
     - name: Save wheels as artifacts
       uses: actions/upload-artifact@v3
       with:

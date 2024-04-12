@@ -40,6 +40,7 @@ jobs:
     - name: Wrap ORE-SWIG
       run: |
         pwd
+        python -m pip install setuptools
         cp wheels/oreanalytics-config.macos OREAnalytics-SWIG/oreanalytics-config
         cd OREAnalytics-SWIG/Python/
         python setup.py wrap
