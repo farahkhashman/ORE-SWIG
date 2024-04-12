@@ -1,0 +1,64 @@
+name: Linux x86_64 ManyLinux Wheels
+
+on: workflow_dispatch
+jobs:
+  wheels-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout ORE-SWIG
+      uses: actions/checkout@v3
+    - name: get QuantLib-SWIG
+      run: |
+        git submodule update --init
+    - name: Checkout ORE
+      uses: actions/checkout@v3
+      with:
+          repository: OpenSourceRisk/Engine
+          path: './ORE'
+          fetch-depth: 0
+    - name: get QuantLib
+      run: |
+        cd ORE
+        git submodule update --init
+    - name: Set Swap Space
+      uses: pierotofy/set-swap-space@master
+      with:
+        swap-size-gb: 10
+#    - name: Install eigen
+#      run: |
+#        sudo apt-get update
+#        sudo apt-get install -f -y libeigen3-dev
+    - name: Set up Boost
+      run: |
+        sudo apt update
+        sudo apt install -y libboost-all-dev libboost-test-dev ninja-build
+    - name: Build ORE
+      run : pwd; cd ORE; mkdir build; cd build; cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=false -DQL_BUILD_EXAMPLES=false -DQL_BUILD_TEST_SUITE=false -DQL_BUILD_BENCHMARK=false -DQL_ENABLE_SESSIONS=true -DORE_BUILD_DOC=false -G "Ninja" ..
+    - name: cmake build
+      run: cd build/; pwd; cmake --build . -j $(nproc)
+    - name: Wrap ORE-SWIG
+      run: cd ..; pwd; cd ..; cd OREAnalytics-SWIG/Python; python setup.py wrap
+    - name: Copy Configuration
+      run: |
+         pwd
+         cd ..
+         cd ..
+         cp Wheels/oreanalytics-config.linux OREAnalytics-SWIG/oreanalytics-config
+    - name: Build ORE wheels
+      uses: pypa/cibuildwheel@v2.16.2
+      env:
+        CIBW_BUILD: "*-manylinux*"
+        CIBW_SKIP: cp*
+        CIBW_ARCHS_LINUX: x86_64
+        CIBW_BUILD_VERBOSITY: 2
+        CIBW_BEFORE_ALL_LINUX: ./before_all_linux.sh
+        #CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-O3 -g0"
+        CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-std=c++17 -O3 -g0" ORE=/project/ore
+        CIBW_ENVIRONMENT_PASS_LINUX: CXXFLAGS
+      with:
+        package-dir: /home/runner/work/ore-swig/ore-swig/OREAnalytics-SWIG/Python
+    - name: Save wheels as artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: wheels-linux-manylinux-x86_64
+        path: ./wheelhouse/*.whl
