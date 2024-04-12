@@ -35,14 +35,12 @@ jobs:
     - name: Build ORE
       run : pwd; cd ORE; mkdir build; cd build; cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=false -DQL_BUILD_EXAMPLES=false -DQL_BUILD_TEST_SUITE=false -DQL_BUILD_BENCHMARK=false -DQL_ENABLE_SESSIONS=true -DORE_BUILD_DOC=false -G "Ninja" ..
     - name: cmake build
-      run: pwd; cmake --build . -j $(nproc)
+      run: pwd; cd ORE; cd build; cmake --build . -j $(nproc)
     - name: Wrap ORE-SWIG
-      run: cd ..; pwd; cd ..; cd OREAnalytics-SWIG/Python; python setup.py wrap
+      run: pwd; cd OREAnalytics-SWIG/Python; python setup.py wrap
     - name: Copy Configuration
       run: |
          pwd
-         cd ..
-         cd ..
          cp Wheels/oreanalytics-config.linux OREAnalytics-SWIG/oreanalytics-config
     - name: Build ORE wheels
       uses: pypa/cibuildwheel@v2.16.2
