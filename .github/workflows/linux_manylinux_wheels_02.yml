@@ -59,6 +59,12 @@ jobs:
          cp Wheels/oreanalytics-config.linux OREAnalytics-SWIG/oreanalytics-config
          #cd Wheels
          #chmod +x before_all_linux.sh
+    - name: Tree QuantExt
+      run: |
+         pwd
+         cd ORE; cd QuantExt; dir; cd qle; dir
+         #cd Wheels
+         #chmod +x before_all_linux.sh
     - name: Build ORE wheels
       uses: pypa/cibuildwheel@v2.16.2
       env:
