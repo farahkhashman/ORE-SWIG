@@ -75,7 +75,7 @@ class my_wrap(Command):
                       '-I%s ' % qle_swig_dir +
                       '-I%s ' % oredata_swig_dir +
                       '-outdir ORE -o ORE/oreanalytics_wrap.cpp ' +
-                      'oreanalytics.i')
+                      os.path.join("..","SWIG","oreanalytics.i"))
         else:
             os.system('swig -python -c++ ' +
                       '-I%s ' % swig_dir +
