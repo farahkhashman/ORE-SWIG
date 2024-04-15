@@ -52,7 +52,6 @@ jobs:
         ls -al
         pwd
         python setup.py wrap
-        python setup.py build
     - name: Build Wheels
       uses: pypa/cibuildwheel@v2.16.5
       env:
