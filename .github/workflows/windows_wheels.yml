@@ -103,3 +103,13 @@ jobs:
       with:
         name: wheels-windows-${{ matrix.arch }}
         path: ./wheelhouse/*.whl
+    - name: Build ORE sdist
+      run: |
+        pwd
+        cd OREAnalytics-SWIG/Python
+        python -m build --sdist
+    - name: Upload sdist as artefacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: sdist-${{matrix.arch}}
+        path: ./dist/*.tar.gz
