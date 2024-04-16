@@ -9,24 +9,24 @@ echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 CURRENT_DIR=$(pwd)
 
-echo "XYZ BEGIN unpack eigen"
-curl -O -L https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
-tar zxvf eigen-3.4.0.tar.gz
-cd eigen-3.4.0
-mkdir build
-cd build
-cmake ..
-cd ../..
-echo "XYZ END unpack eigen"
+#echo "XYZ BEGIN unpack eigen"
+#curl -O -L https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
+#tar zxvf eigen-3.4.0.tar.gz
+#cd eigen-3.4.0
+#mkdir build
+#cd build
+#cmake ..
+#cd ../..
+#echo "XYZ END unpack eigen"
 
-echo "XYZ BEGIN unpack zlib"
-curl -O -L https://www.zlib.net/zlib-1.3.1.tar.gz
-tar xzvf zlib-1.3.1.tar.gz
-cd zlib-1.3.1
-./configure
-make
-cd ..
-echo "XYZ END unpack zlib"
+#echo "XYZ BEGIN unpack zlib"
+#curl -O -L https://www.zlib.net/zlib-1.3.1.tar.gz
+#tar xzvf zlib-1.3.1.tar.gz
+#cd zlib-1.3.1
+#./configure
+#make
+#cd ..
+#echo "XYZ END unpack zlib"
 
 echo "XYZ BEGIN unpack boost"
 # Setup Boost
