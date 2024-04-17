@@ -9,9 +9,9 @@ jobs:
           - arch: AMD64
             platform: x64
             boost-lib: 64
-          #- arch: x86
-          #  platform: Win32
-          #  boost-lib: 32
+          - arch: x86
+            platform: Win32
+            boost-lib: 32
     steps:
     - name: Checkout ORE-SWIG
       uses: actions/checkout@v3
@@ -104,13 +104,3 @@ jobs:
       with:
         name: wheels-windows-${{ matrix.arch }}
         path: ./wheelhouse/*.whl
-    - name: Build ORE sdist
-      run: |
-        pwd
-        cd OREAnalytics-SWIG/Python
-        python -m build --sdist
-    - name: Upload sdist as artefacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: sdist-${{matrix.arch}}
-        path: ./dist/*.tar.gz
