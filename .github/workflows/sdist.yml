@@ -118,14 +118,12 @@ jobs:
         pwd
         pip install build
         python -m build --sdist
-        echo after build
         pwd
-        cd ..
-        cd ..
-        pwd
-        dir  /s /b *.tar.gz | findstr /e .tar.gz
+        dir
+        cd dist
+        dir
     - name: Upload sdist as artefacts
       uses: actions/upload-artifact@v3
       with:
         name: sdist-${{matrix.arch}}
-        path: ./*.tar.gz
+        path: D:\a\ORE-SWIG\ORE-SWIG\OREAnalytics-SWIG\Python\dist\*.tar.gz
