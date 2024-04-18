@@ -117,7 +117,7 @@ jobs:
         cd OREAnalytics-SWIG/Python
         pwd
         pip install build
-        python setup.py build --sdist
+        python setup.py sdist
         pwd
         dir
         cd dist
