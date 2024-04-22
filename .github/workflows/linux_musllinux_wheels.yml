@@ -65,7 +65,7 @@ jobs:
       uses: pypa/cibuildwheel@v2.17.0
       env:
         CIBW_BUILD: "*-musllinux*"
-        CIBW_SKIP: cp36-*
+        CIBW_SKIP: cp37-*
         CIBW_ARCHS_LINUX: x86_64
         CIBW_BUILD_VERBOSITY: 2
         CIBW_BEFORE_ALL_LINUX: ./Wheels/before_all_linux.sh
