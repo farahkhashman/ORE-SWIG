@@ -44,7 +44,7 @@ pwd
 cd ORE
 cp build/QuantExt/qle/libQuantExt.so SharedLibs
 cp build/OREData/ored/libOREData.so SharedLibs
-cp build/QuantExt/qle/libOREAnalytics.so SharedLibs
+cp build/OREAnalytics/orea/libOREAnalytics.so SharedLibs
 #cp QuantLib/ql/libQuantLib.so.1
 
 
