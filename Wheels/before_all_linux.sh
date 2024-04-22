@@ -42,7 +42,6 @@ echo "XYZ END unpack boost"
 echo "Create Directory for Shared Library"
 pwd
 cd ORE
-sudo mkdir -m 777 SharedLibs
 cp build/QuantExt/qle/libQuantExt.so SharedLibs
 cp build/OREData/ored/libOREData.so SharedLibs
 cp build/QuantExt/qle/libOREAnalytics.so SharedLibs
