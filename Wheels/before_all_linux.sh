@@ -38,3 +38,9 @@ export Eigen3_DIR=$CURRENT_DIR/eigen-3.4.0
 ./b2 install -sZLIB_SOURCE=$CURRENT_DIR/zlib-1.3.1
 cd ..
 echo "XYZ END unpack boost"
+
+echo $LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/usr/local/lib
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":$CURRENT_DIR/ORE/build/QuantExt/qle
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":$CURRENT_DIR/ORE/build/OREData/ored
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":$CURRENT_DIR/ORE/build/OREAnalytics/orea
