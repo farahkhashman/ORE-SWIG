@@ -72,7 +72,7 @@ jobs:
         #CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-O3 -g0"
         CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-std=c++17 -O3 -g0" ORE=/project/ORE
         CIBW_ENVIRONMENT_PASS_LINUX: CXXFLAGS
-        CIBW_REPAIR_WHEEL_COMMAND_LINUX: "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/project/ORE/SharedLibs auditwheel repair --lib-sdir . -w {dest_dir} {wheel}"
+        CIBW_REPAIR_WHEEL_COMMAND_LINUX: "LD_LIBRARY_PATH=/usr/local/lib LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/project/ORE/SharedLibs auditwheel repair --lib-sdir . -w {dest_dir} {wheel}"
       with:
         package-dir: /home/runner/work/ORE-SWIG/ORE-SWIG/OREAnalytics-SWIG/Python
     - name: Save wheels as artifacts

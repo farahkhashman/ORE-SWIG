@@ -49,6 +49,7 @@ cp build/OREAnalytics/orea/libOREAnalytics.so SharedLibs
 
 
 
+echo "LD LIBRARY: " 
 echo $LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/usr/local/lib
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":$CURRENT_DIR/ORE/SharedLibs
