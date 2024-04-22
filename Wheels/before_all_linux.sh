@@ -45,6 +45,9 @@ cd ORE
 cp build/QuantExt/qle/libQuantExt.so SharedLibs
 cp build/OREData/ored/libOREData.so SharedLibs
 cp build/OREAnalytics/orea/libOREAnalytics.so SharedLibs
+cd build
+cd QuantLib/ql
+ls -al
 #cp QuantLib/ql/libQuantLib.so.1
 
 
@@ -53,3 +56,5 @@ echo "LD LIBRARY: "
 echo $LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/usr/local/lib
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":$CURRENT_DIR/ORE/SharedLibs
+echo "LD LIBRARY AFTER: " 
+echo $LD_LIBRARY_PATH
