@@ -58,7 +58,7 @@ jobs:
          pwd
          cp Wheels/oreanalytics-config.linux OREAnalytics-SWIG/oreanalytics-config
          cd Wheels
-         chmod +x before_all_linux.sh
+         chmod +x before_build.sh
     - name: Build ORE wheels
       uses: pypa/cibuildwheel@v2.17.0
       env:
