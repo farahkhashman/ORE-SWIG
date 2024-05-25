@@ -38,23 +38,3 @@ export Eigen3_DIR=$CURRENT_DIR/eigen-3.4.0
 ./b2 install -sZLIB_SOURCE=$CURRENT_DIR/zlib-1.3.1
 cd ..
 echo "XYZ END unpack boost"
-
-echo "Create Directory for Shared Library"
-pwd
-cd ORE
-cp build/QuantExt/qle/libQuantExt.so SharedLibs
-cp build/OREData/ored/libOREData.so SharedLibs
-cp build/OREAnalytics/orea/libOREAnalytics.so SharedLibs
-cd build
-cd QuantLib/ql
-ls -al
-#cp QuantLib/ql/libQuantLib.so.1
-
-
-
-echo "LD LIBRARY: " 
-echo $LD_LIBRARY_PATH
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/usr/local/lib
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":$CURRENT_DIR/ORE/SharedLibs
-echo "LD LIBRARY AFTER: " 
-echo $LD_LIBRARY_PATH
