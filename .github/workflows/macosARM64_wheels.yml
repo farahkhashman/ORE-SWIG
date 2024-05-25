@@ -1,12 +1,6 @@
 name: MacOS ARM64 Wheels
 
 on:
-  push:
-    branches: [master]
-    tags:
-       - 'v*'
-  release:
-   types: [published]
   workflow_dispatch:
 
 jobs:
