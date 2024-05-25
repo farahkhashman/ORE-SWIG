@@ -30,9 +30,9 @@ CURRENT_DIR=$(pwd)
 
 echo "XYZ BEGIN unpack boost"
 # Setup Boost
-curl -O -L https://boostorg.jfrog.io/artifactory/main/release/1.74.0/source/boost_1_74_0.tar.gz
-tar xfz boost_1_74_0.tar.gz
-cd boost_1_74_0
+curl -O -L https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
+tar xfz boost_1_80_0.tar.gz
+cd boost_1_80_0
 export Eigen3_DIR=$CURRENT_DIR/eigen-3.4.0
 ./bootstrap.sh --with-libraries=date_time,filesystem,iostreams,log,regex,serialization,system,thread,timer
 ./b2 install -sZLIB_SOURCE=$CURRENT_DIR/zlib-1.3.1
