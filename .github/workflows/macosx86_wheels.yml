@@ -28,7 +28,7 @@ jobs:
         tar xfz boost_1_80_0.tar.gz
         cd boost_1_80_0
         ./bootstrap.sh
-        ./b2 architecture=x86 address-model=64 -s NO_LZMA=1 -s NO_ZSTD=1 abi=aapcs install
+        ./b2 architecture=x86 address-model=32 -s NO_LZMA=1 -s NO_ZSTD=1 abi=aapcs install
     - name: Build ORE CMake
       run: |
         cd ORE
