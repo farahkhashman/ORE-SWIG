@@ -1,0 +1,67 @@
+name: MacOS x86 Wheels OLD BOOST
+
+on:
+  workflow_dispatch:
+
+jobs:
+  wheels-macos:
+    runs-on: macos-11
+    steps:
+    - name: Checkout ORE-SWIG
+      uses: actions/checkout@v4
+    - name: get QuantLib-SWIG
+      run: |
+        git submodule update --init
+    - name: Checkout ORE
+      uses: actions/checkout@v4
+      with:
+          repository: OpenSourceRisk/Engine
+          path: './ORE'
+          fetch-depth: 0
+    - name: get QuantLib
+      run: |
+        cd ORE
+        git submodule update --init
+    - name: Install Boost
+      run: |
+        brew install boost
+        cd /usr/local/lib
+        ln -s libboost_thread-mt.dylib libboost_thread.dylib
+        ln -s libboost_thread-mt.a libboost_thread.a
+    - name: Build ORE CMake
+      run: |
+        cd ORE
+        mkdir build
+        cd build
+        cmake .. -DORE_USE_ZLIB=ON -DBUILD_SHARED_LIBS=false -DORE_BUILD_DOC=OFF -DORE_BUILD_EXAMPLES=OFF -DORE_BUILD_TESTS=OFF -DORE_BUILD_APP=OFF -DQL_BUILD_BENCHMARK=OFF -DQL_BUILD_EXAMPLES=OFF -DQL_BUILD_TEST_SUITE=OFF -DQL_ENABLE_SESSIONS=ON -DCMAKE_BUILD_TYPE=Release ..
+        cmake --build . -j4
+        cmake --install .
+    - name: Wrap ORE-SWIG
+      run: |
+        pwd
+        python -m pip install setuptools
+        cp wheels/oreanalytics-config.macos OREAnalytics-SWIG/oreanalytics-config
+        cd OREAnalytics-SWIG/SWIG
+        chmod +x oreanalytics.i
+        cd ..
+        cd Python
+        pwd
+        python setup.py wrap
+    - name: Build Wheels
+      uses: pypa/cibuildwheel@v2.17
+      env:
+        CIBW_SKIP: cp36-*
+        CIBW_ARCHS_MACOS: x86_64
+        MACOSX_DEPLOYMEN_TARGET: "11.7"
+        CXXFLAGS: -std=c++17 -g0 -O3 -mmacosx-version-min=11
+        CIBW_BUILD_VERBOSITY: 2
+        CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
+          DYLD_LIBRARY_PATH=/usr/local/lib delocate-listdeps {wheel} &&
+          DYLD_LIBRARY_PATH=/usr/local/lib delocate-wheel --require-archs {delocate_archs} -w {dest_dir} {wheel}
+      with:
+        package-dir: /Users/runner/work/ORE-SWIG/ORE-SWIG/OREAnalytics-SWIG/Python
+    - name: Save wheels as artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: wheels-macos-x86_64
+        path: ./wheelhouse/*.whl
