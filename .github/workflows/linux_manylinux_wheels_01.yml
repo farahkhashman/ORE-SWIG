@@ -48,8 +48,8 @@ jobs:
         curl -O -L https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
         tar xfz boost_1_80_0.tar.gz
         cd boost_1_80_0
-        ./bootstrap.sh --with-libraries=date_time,filesystem,iostreams,log,regex,serialization,system,thread,timer
-        ./b2 install -sZLIB_SOURCE=$ZLIB_ROOT
+        sudo ./bootstrap.sh --with-libraries=date_time,filesystem,iostreams,log,regex,serialization,system,thread,timer
+        sudo ./b2 install -sZLIB_SOURCE=$ZLIB_ROOT
     - name: Build ORE
       run : pwd; cd ORE; mkdir build; cd build; cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DORE_USE_ZLIB=ON -DQL_BUILD_EXAMPLES=false -DQL_BUILD_TEST_SUITE=false -DQL_BUILD_BENCHMARK=false -DQL_ENABLE_SESSIONS=true -DORE_BUILD_DOC=false ..
     - name: cmake build
