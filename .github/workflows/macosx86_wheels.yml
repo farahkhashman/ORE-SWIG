@@ -53,7 +53,7 @@ jobs:
       env:
         CIBW_SKIP: cp36-*
         CIBW_ARCHS_MACOS: x86_64
-        MACOSX_DEPLOYMEN_TARGET: "11.7"
+        MACOSX_DEPLOYMENT_TARGET: "11.7"
         CXXFLAGS: -std=c++17 -g0 -O3 -mmacosx-version-min=11
         CIBW_BUILD_VERBOSITY: 2
         CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
