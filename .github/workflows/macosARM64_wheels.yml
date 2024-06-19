@@ -5,7 +5,7 @@ on:
 
 jobs:
   wheels-macos:
-    runs-on: macos-latest
+    runs-on: macos-12
     steps:
     - name: Checkout ORE-SWIG
       uses: actions/checkout@v4
