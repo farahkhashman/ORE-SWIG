@@ -57,6 +57,7 @@ jobs:
         cd Python
         ls -al
         pwd
+        export ORE_USE_ZLIB=1
         python setup.py wrap
     - name: Build Wheels
       uses: pypa/cibuildwheel@v2.19
