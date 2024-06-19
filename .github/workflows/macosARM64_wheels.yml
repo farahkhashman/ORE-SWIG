@@ -32,6 +32,9 @@ jobs:
         cd boost_1_80_0
         ./bootstrap.sh
         ./b2 architecture=arm address-model=64 -s NO_LZMA=1 -s NO_ZSTD=1 abi=aapcs install
+    - name: Install Zlib
+      run: |
+        brew install zlib
     - name: Build ORE CMake
       run: |
         cd ORE
