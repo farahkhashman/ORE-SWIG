@@ -5,7 +5,7 @@ on:
 
 jobs:
   wheels-macos:
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
     - name: Checkout ORE-SWIG
       uses: actions/checkout@v4
@@ -30,9 +30,9 @@ jobs:
         brew install zlib
     - name: Install Boost
       run: |
-        curl -O -L https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
-        tar xfz boost_1_80_0.tar.gz
-        cd boost_1_80_0
+        curl -O -L https://boostorg.jfrog.io/artifactory/main/release/1.83.0/source/boost_1_83_0.tar.gz
+        tar xfz boost_1_83_0.tar.gz
+        cd boost_1_83_0
         sudo ./bootstrap.sh
         sudo ./b2 architecture=arm address-model=64 -s NO_LZMA=1 -s NO_ZSTD=1 abi=aapcs install
     - name: Build ORE CMake
@@ -40,7 +40,7 @@ jobs:
         cd ORE
         mkdir build
         cd build
-        cmake .. -DBOOST_NO_CXX98_FUNCTION_BASE -DCMAKE_OSX_ARCHITECTURES=arm64 -DORE_USE_ZLIB=ON -DORE_BUILD_DOC=OFF -DORE_BUILD_EXAMPLES=OFF -DORE_BUILD_TESTS=OFF -DORE_BUILD_APP=OFF -DQL_BUILD_BENCHMARK=OFF -DQL_BUILD_EXAMPLES=OFF -DQL_BUILD_TEST_SUITE=OFF -DQL_ENABLE_SESSIONS=ON -DCMAKE_BUILD_TYPE=Release ..
+        cmake .. -DCMAKE_OSX_ARCHITECTURES=arm64 -DORE_USE_ZLIB=ON -DORE_BUILD_DOC=OFF -DORE_BUILD_EXAMPLES=OFF -DORE_BUILD_TESTS=OFF -DORE_BUILD_APP=OFF -DQL_BUILD_BENCHMARK=OFF -DQL_BUILD_EXAMPLES=OFF -DQL_BUILD_TEST_SUITE=OFF -DQL_ENABLE_SESSIONS=ON -DCMAKE_BUILD_TYPE=Release ..
         cmake --build . -j4
         cmake --install .
     - name: Wrap ORE-SWIG
@@ -59,7 +59,7 @@ jobs:
         pwd
         python setup.py wrap
     - name: Build Wheels
-      uses: pypa/cibuildwheel@v2.16.5
+      uses: pypa/cibuildwheel@v2.18
       env:
         CIBW_SKIP: cp36-*
         #CIBW_BUILD: cp310-macosx_arm64
