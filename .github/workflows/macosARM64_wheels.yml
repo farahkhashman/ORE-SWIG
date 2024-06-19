@@ -5,7 +5,7 @@ on:
 
 jobs:
   wheels-macos:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
     - name: Checkout ORE-SWIG
       uses: actions/checkout@v4
@@ -25,16 +25,16 @@ jobs:
     - name: Install Eigen
       run: |
         brew install eigen
+    - name: Install Zlib
+      run: |
+        brew install zlib
     - name: Install Boost
       run: |
         curl -O -L https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
         tar xfz boost_1_80_0.tar.gz
         cd boost_1_80_0
         sudo ./bootstrap.sh
-        sudo ./b2 architecture=arm address-model=64 -s NO_LZMA=1 -s NO_ZSTD=1 abi=aapcs install
-    - name: Install Zlib
-      run: |
-        brew install zlib
+        sudo ./b2 architecture=arm address-model=64 -s NO_LZMA=1 -s abi=aapcs install
     - name: Build ORE CMake
       run: |
         cd ORE
