@@ -24,16 +24,16 @@ jobs:
       uses: pierotofy/set-swap-space@master
       with:
         swap-size-gb: 10
-    #- name: Install eigen
-    #  run: |
-    #    curl -O -L https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
-    #    tar zxvf eigen-3.4.0.tar.gz
-    #    cd eigen-3.4.0
-    #    mkdir build
-    #    cd build
-    #    cmake ..
-    #    export 
-    #    export Eigen3_DIR=$CURRENT_DIR/eigen-3.4.0
+    - name: Install eigen
+      run: |
+        curl -O -L https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
+        tar zxvf eigen-3.4.0.tar.gz
+        cd eigen-3.4.0
+        mkdir build
+        cd build
+        cmake ..
+        export 
+        export Eigen3_DIR=$CURRENT_DIR/eigen-3.4.0
     - name: Build Zlib
       run: |
         pwd
@@ -52,43 +52,41 @@ jobs:
         sudo ./b2 install -sZLIB_SOURCE=$ZLIB_ROOT
         pwd
         ls
-        cd libs
-        ls
-    #- name: Build ORE
-    #  run : pwd; cd ORE; mkdir build; cd build; cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DORE_USE_ZLIB=ON -DQL_BUILD_EXAMPLES=false -DQL_BUILD_TEST_SUITE=false -DQL_BUILD_BENCHMARK=false -DQL_ENABLE_SESSIONS=true -DORE_BUILD_DOC=false ..
-    #- name: cmake build
-    #  run: pwd; cd ORE; cd build; cmake --build . -j $(nproc); sudo cmake --install .
-    #- name: Wrap ORE-SWIG
-    #  run: pwd; cd OREAnalytics-SWIG/Python; python setup.py wrap
-    #- name: Copy Configuration
-    #  run: |
-    #     pwd
-    #     cp Wheels/oreanalytics-config.linux OREAnalytics-SWIG/oreanalytics-config
-    #     cd Wheels
-    #     #chmod +x before_all_linux.sh
-    #- name: Build ORE wheels
-    #  uses: pypa/cibuildwheel@v2.19
-    #  env:
-    #    CIBW_BUILD: "*-manylinux*"
-    #    CIBW_SKIP: cp*
-    #    #CIBW_BUILD: cp37-manylinux_x86_64
-    #    #CIBW_BUILD: cp38-manylinux_x86_64
-    #    #CIBW_BUILD: cp39-manylinux_x86_64
-    #    #CIBW_BUILD: cp310-manylinux_x86_64
-    #    #CIBW_BUILD: cp311-manylinux_x86_64
-    #    CIBW_ARCHS_LINUX: x86_64
-    #    CIBW_BUILD_VERBOSITY: 2
-    #    ORE_USE_ZLIB: 1
-    #    BOOST_ROOT: /home/runner/work/ORE-SWIG/ORE-SWIG/boost_1_80_0
-    #    #CIBW_BEFORE_ALL_LINUX: ./Wheels/before_all_linux.sh
-    #    #CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-O3 -g0"
-    #    BOOST_LIB: /home/runner/work/ORE-SWIG/ORE-SWIG/boost_1_80_0
-    #    CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-std=c++17 -O3 -g0" ORE=/project/ORE
-    #    CIBW_ENVIRONMENT_PASS_LINUX: CXXFLAGS
-    #  with:
-    #    package-dir: /home/runner/work/ORE-SWIG/ORE-SWIG/OREAnalytics-SWIG/Python
-    #- name: Save wheels as artifacts
-    #  uses: actions/upload-artifact@v4
-    #  with:
-    #    name: wheels-linux-manylinux-x86_64
-    #    path: ./wheelhouse/*.whl
+    - name: Build ORE
+      run : pwd; cd ORE; mkdir build; cd build; cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DORE_USE_ZLIB=ON -DQL_BUILD_EXAMPLES=false -DQL_BUILD_TEST_SUITE=false -DQL_BUILD_BENCHMARK=false -DQL_ENABLE_SESSIONS=true -DORE_BUILD_DOC=false ..
+    - name: cmake build
+      run: pwd; cd ORE; cd build; cmake --build . -j $(nproc); sudo cmake --install .
+    - name: Wrap ORE-SWIG
+      run: pwd; cd OREAnalytics-SWIG/Python; python setup.py wrap
+    - name: Copy Configuration
+      run: |
+         pwd
+         cp Wheels/oreanalytics-config.linux OREAnalytics-SWIG/oreanalytics-config
+         cd Wheels
+         #chmod +x before_all_linux.sh
+    - name: Build ORE wheels
+      uses: pypa/cibuildwheel@v2.19
+      env:
+        CIBW_BUILD: "*-manylinux*"
+        CIBW_SKIP: cp*
+        #CIBW_BUILD: cp37-manylinux_x86_64
+        #CIBW_BUILD: cp38-manylinux_x86_64
+        #CIBW_BUILD: cp39-manylinux_x86_64
+        #CIBW_BUILD: cp310-manylinux_x86_64
+        #CIBW_BUILD: cp311-manylinux_x86_64
+        CIBW_ARCHS_LINUX: x86_64
+        CIBW_BUILD_VERBOSITY: 2
+        ORE_USE_ZLIB: 1
+        BOOST_ROOT: /home/runner/work/ORE-SWIG/ORE-SWIG/boost_1_80_0
+        #CIBW_BEFORE_ALL_LINUX: ./Wheels/before_all_linux.sh
+        #CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-O3 -g0"
+        BOOST_LIB: /home/runner/work/ORE-SWIG/ORE-SWIG/boost_1_80_0/libs
+        CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-std=c++17 -O3 -g0" ORE=/project/ORE
+        CIBW_ENVIRONMENT_PASS_LINUX: CXXFLAGS
+      with:
+        package-dir: /home/runner/work/ORE-SWIG/ORE-SWIG/OREAnalytics-SWIG/Python
+    - name: Save wheels as artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: wheels-linux-manylinux-x86_64
+        path: ./wheelhouse/*.whl
