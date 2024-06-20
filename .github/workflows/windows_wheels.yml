@@ -9,9 +9,9 @@ jobs:
           - arch: AMD64
             platform: x64
             boost-lib: 64
-          #- arch: x86
-          #  platform: Win32
-          #  boost-lib: 32
+          - arch: x86
+            platform: Win32
+            boost-lib: 32
     steps:
     - name: Checkout ORE-SWIG
       uses: actions/checkout@v4
@@ -93,9 +93,8 @@ jobs:
         ORE_DIR: D:\a\ORE-SWIG\ORE-SWIG\ORE
         ORE_STATIC_RUNTIME: 1
         ORE_USE_ZLIB: 1
-        #CIBW_SKIP: cp36-* cp37-*
+        CIBW_SKIP: cp36-* cp37-*
         #CIBW_BUILD: cp37-win_amd64
-        CIBW_BUILD: cp38-*
         #CIBW_BUILD: cp37-*
         CIBW_ARCHS_WINDOWS: ${{ matrix.arch }}
         CIBW_BUILD_VERBOSITY: 2
@@ -106,22 +105,3 @@ jobs:
       with:
         name: wheels-windows-${{ matrix.arch }}
         path: ./wheelhouse/*.whl
-    - name: Build ORE sdist
-      env:
-        BOOST_ROOT: C:\local\boost
-        BOOST_LIB: C:\local\boost\lib${{ matrix.boost-lib }}-msvc-14.2
-        ORE: D:\a\ORE-SWIG\ORE-SWIG\ORE
-        ORE_DIR: D:\a\ORE-SWIG\ORE-SWIG\ORE
-        ORE_STATIC_RUNTIME: 1
-        ORE_USE_ZLIB: 1
-      run: |
-        pwd
-        cd OREAnalytics-SWIG/Python
-        pip install build
-        python setup.py sdist
-        cd dist
-    - name: Upload sdist as artefacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: sdist-${{matrix.arch}}
-        path: D:\a\ORE-SWIG\ORE-SWIG\OREAnalytics-SWIG\Python\dist\*.tar.gz
