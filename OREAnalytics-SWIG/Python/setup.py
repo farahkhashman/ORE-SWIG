@@ -200,6 +200,9 @@ class my_build_ext(build_ext):
             ql_link_args = \
                 os.popen('../oreanalytics-config --libs').read()[:-1].split()
 
+            BOOST_LIB = os.getenviron['BOOST_LIB']
+            BOOST_INC = os.getenviron['BOOST_INC']
+
             self.define += [ (arg[2:],None) for arg in ql_compile_args
                              if arg.startswith('-D') ]
             self.include_dirs += [ arg[2:] for arg in ql_compile_args
@@ -208,6 +211,13 @@ class my_build_ext(build_ext):
                                    if arg.startswith('-L') ]
             self.libraries += [ arg[2:] for arg in ql_link_args
                                 if arg.startswith('-l') ]
+            
+            print(self.library_dirs)
+            print(self.include_dirs)
+            self.library_dirs += BOOST_LIB
+            self.include_dirs += BOOST_INC
+            print(self.library_dirs)
+            print(self.include_dirs)
 
             extra_compile_args = [ arg for arg in ql_compile_args
                                    if not arg.startswith('-D')
