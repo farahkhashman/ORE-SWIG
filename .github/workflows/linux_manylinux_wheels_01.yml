@@ -78,6 +78,7 @@ jobs:
         CIBW_BUILD_VERBOSITY: 2
         ORE_USE_ZLIB: 1
         BOOST_ROOT: /home/runner/work/ORE-SWIG/ORE-SWIG/boost_1_80_0
+        BOOST_INC: /home/runner/work/ORE-SWIG/ORE-SWIG/boost_1_80_0
         #CIBW_BEFORE_ALL_LINUX: ./Wheels/before_all_linux.sh
         #CIBW_ENVIRONMENT_LINUX: CXXFLAGS="-O3 -g0"
         BOOST_LIB: /home/runner/work/ORE-SWIG/ORE-SWIG/boost_1_80_0/libs
