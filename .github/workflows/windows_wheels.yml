@@ -9,9 +9,9 @@ jobs:
           - arch: AMD64
             platform: x64
             boost-lib: 64
-          - arch: x86
-            platform: Win32
-            boost-lib: 32
+          #- arch: x86
+          #  platform: Win32
+          #  boost-lib: 32
     steps:
     - name: Checkout ORE-SWIG
       uses: actions/checkout@v4
@@ -98,6 +98,8 @@ jobs:
         #CIBW_BUILD: cp37-*
         CIBW_ARCHS_WINDOWS: ${{ matrix.arch }}
         CIBW_BUILD_VERBOSITY: 2
+        CIBW_TEST_REQUIRES: nose
+        CIBW_TEST_COMMAND: python D:\a\ORE-SWIG\ORE-SWIG\OREAnalytics-SWIG\Python\test\OREAnalyticsTestSuite.py
       with:
         package-dir: D:\a\ORE-SWIG\ORE-SWIG\OREAnalytics-SWIG\Python
     - name: Save wheels as artifacts
